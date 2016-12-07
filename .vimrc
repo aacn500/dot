@@ -1,16 +1,29 @@
+execute pathogen#infect()
+"vim-better-whitespace
+"vim-colors-solarized
+"vim-javascript-syntax
+"vim-pug
+
 syntax enable
+if has('gui_running')
+    let g:solarized_termcolors=256
+    set background=dark
+    colorscheme solarized
+endif
 
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-filetype indent on
+set number
+set showcmd
+filetype plugin indent on
+set showmatch
 
+" move up/down vertically by visual line
+nnoremap j gj
+nnoremap k gk
 
-" Powerline
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-
-set laststatus=2
+map <F7> :tabp <CR>
+map <F8> :tabn <CR>
