@@ -1,0 +1,25 @@
+UEFI secure boot
+
+lifted from `cedric van frachem` from comments here:
+ https://linuxconfig.org/how-to-install-the-latest-nvidia-drivers-on-ubuntu-16-04-xenial-xerus
+
+Booting with secure boot on means that you need to sign your kernel modules every time that they are recompiled. (nvidia drivers, etc.)
+
+First time: generate a key
+ sudo su -
+ openssl req -new -x509 rsa:2048 -keyout UEFI.priv -outform DER -out UEFI.der -nodes -days 36500 -subj "/CN=myself/"
+
+Then import the key
+ mokutil --import UEFI.der
+
+This will require a password to import the keys (keepass)
+
+Then sign the kernel modules
+First find the names of the nvidia modules you need to import:
+ ll /lib/modules/$(uname -r)/updates/dkms
+Select all those that begin with nvidia_
+Then for each do
+ set -o pipefail
+ for module in "nvidia_375 nvidia_375_modeset nvidia_375_uvm nvidia_375_drm"; do
+ echo "check signature of $module";
+ modprobe $module || (echo "needs to be signed. signing $module..." && /usr/src/linux-headers-$(uname -r)/scripts/sign-file sha256 ./UEFI.priv ./UEFI.der $(modinfo -n $(modprobe $module |& sed 's/.*'"'"'\(.*\)'"'"'.*/\1/g')) && modprobe $module || echo "Something went wrong. $module was not signed" ); done
