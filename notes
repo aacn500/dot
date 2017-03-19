@@ -23,3 +23,11 @@ Then for each do
  for module in "nvidia_375 nvidia_375_modeset nvidia_375_uvm nvidia_375_drm"; do
  echo "check signature of $module";
  modprobe $module || (echo "needs to be signed. signing $module..." && /usr/src/linux-headers-$(uname -r)/scripts/sign-file sha256 ./UEFI.priv ./UEFI.der $(modinfo -n $(modprobe $module |& sed 's/.*'"'"'\(.*\)'"'"'.*/\1/g')) && modprobe $module || echo "Something went wrong. $module was not signed" ); done
+
+
+Turn DSLR into webcam:
+
+ gphoto2 --stdout --capture-movie | sudo gst-launch-1.0 fdsrc ! decodebin name=dec ! queue ! videoconvert ! videoflip method=horizontal-flip  ! tee ! v4l2sink device=/dev/video0
+
+test it:
+ sleep 2 && mplayer -tv device=/dev/video0 tv://
