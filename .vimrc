@@ -27,3 +27,6 @@ nnoremap k gk
 
 map <F7> :tabp <CR>
 map <F8> :tabn <CR>
+
+" syntax for ejs files as if they were html
+au BufNewFile,BufRead *.ejs set filetype=html
