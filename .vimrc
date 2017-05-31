@@ -40,3 +40,6 @@ au BufNewFile,BufRead *.ejs set filetype=html
 
 " set underscore as a non-word character
 set iskeyword-=_
+
+" toggle highlight search
+nnoremap <Leader>h :set hlsearch!<CR>
