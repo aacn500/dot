@@ -45,3 +45,6 @@ powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
 . /usr/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+
+# prompt
+export PS1='\[\033[01;32m\][\u@\h]\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\] $(printf '%.*s' $? $?) \$ '
