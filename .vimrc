@@ -5,6 +5,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 
   Plug 'ntpeters/vim-better-whitespace'
   Plug 'altercation/vim-colors-solarized'
+  Plug 'airblade/vim-gitgutter'
   " TODO add more plugins
 
   call plug#end()
@@ -22,24 +23,25 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
+filetype plugin indent on
 
 set number
 set showcmd
-filetype plugin indent on
 set showmatch
 
 " move up/down vertically by visual line
 nnoremap j gj
 nnoremap k gk
 
+" switch tabs
 map <F7> :tabp <CR>
 map <F8> :tabn <CR>
+
+" toggle highlight search
+nnoremap <Leader>h :set hlsearch!<CR>
 
 " syntax for ejs files as if they were html
 au BufNewFile,BufRead *.ejs set filetype=html
 
 " set underscore as a non-word character
-set iskeyword-=_
-
-" toggle highlight search
-nnoremap <Leader>h :set hlsearch!<CR>
+"set iskeyword-=_
