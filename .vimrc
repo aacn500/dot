@@ -10,7 +10,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'digitaltoad/vim-pug'
     Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --tern-completer' }
     Plug 'fatih/vim-go', { 'tag': '*', 'do': ':GoInstallBinaries' }
-    " TODO add more plugins
+    Plug 'derekwyatt/vim-scala'
 
     call plug#end()
 
@@ -48,7 +48,7 @@ nnoremap <Leader>h :set hlsearch!<CR>
 au BufNewFile,BufRead *.ejs set filetype=html
 
 " set underscore as a non-word character
-"set iskeyword-=_
+set iskeyword-=_
 
 " vim-go
 autocmd FileType go map <C-.> :cnext<CR>

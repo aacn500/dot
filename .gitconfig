@@ -1,0 +1,7 @@
+[user]
+	email = a.nowak.2769@gmail.com
+	name = Andrew Nowak
+[push]
+	default = simple
+[credential]
+	helper = store
