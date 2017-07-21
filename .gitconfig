@@ -5,3 +5,11 @@
 	default = simple
 [credential]
 	helper = store
+[log]
+	decorate = true
+[alias]
+	ci = commit
+	co = checkout
+	lgo = log
+	ln = log --oneline --no-decorate
+	undo = reset --hard HEAD~1
