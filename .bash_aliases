@@ -20,3 +20,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # I'm clumsy
 alias gti='git'
+
+# run gui apps from shell without forcing them to close when closing term
+alias gui=">/dev/null 2>/dev/null nohup"
+# e.g. `gui firefox google.co.uk &` will now run as if firefox ha been opened
+# from a WM shortcut
