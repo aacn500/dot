@@ -31,3 +31,9 @@ Turn DSLR into webcam:
 
 test it:
  sleep 2 && mplayer -tv device=/dev/video0 tv://
+
+----
+
+Sometimes, when you aren't thinking right, it's possible to create a directory named '~'. It's then tempting to remove this directory using `rm -rf ~`. This is a bad idea. What you actually want is `rm -rf \~`.
+
+WOOPS
