@@ -36,34 +36,39 @@ def report_file_exists_err(conf_file, dest):
 
 def main():
     code = 0
-    for key in installs:
+    for src in installs:
+        dest = installs[src]
         try:
-            os.symlink(key, installs[key])
-        except TypeError as te:
-            # installs[key] is not a string. Assume dict.
+            os.symlink(src, dest)
+        except TypeError:
+            # dest is not a string. Assume dict.
             try:
-                os.symlink(key, installs[key]["to"])
-            except FileExistsError as fee:
+                os.symlink(src, dest["to"])
+            except FileExistsError:
                 # TODO prompt user whether to overwrite
-                report_file_exists_err(key, installs[key]["to"])
-                code |= 1
+                if not (os.path.islink(dest["to"]) and os.readlink(dest["to"]) == src):
+                    # we have not already set up this symlink
+                    report_file_exists_err(src, dest["to"])
+                    code |= 1
                 continue
 
-            for cmd in installs[key]["postinstall"]:
+            for cmd in dest["postinstall"]:
                 try:
                     sp.run(cmd.split(' '), check=True)
                 except CalledProcessError as cpe:
                     sys.stderr.write("Postinstall steps for {} failed: {}"
-                                     .format(key, cpe))
+                                     .format(src, cpe))
                     code |= 2
                     break
 
             continue
 
-        except FileExistsError as fee:
+        except FileExistsError:
             # TODO prompt user whether to overwrite
-            report_file_exists_err(key, installs[key])
-            code |= 1
+            if not (os.path.islink(dest) and os.readlink(dest) == src):
+                # we have not already set up this symlink
+                report_file_exists_err(src, dest)
+                code |= 1
             continue
 
     return code
