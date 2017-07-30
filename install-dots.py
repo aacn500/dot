@@ -3,7 +3,7 @@
 import os
 import sys
 
-from subprocess import run, CalledProcessError
+import subprocess as sp
 
 dotdir = os.path.dirname(os.path.realpath(__file__))
 home = os.environ["HOME"]
@@ -21,6 +21,7 @@ installs = {
             "vim +PlugInstall +qall"
         ]
     },
+    dotdir + "/ftplugin": home + "/.vim/ftplugin",
     dotdir + "/.gitconfig": home + "/.gitconfig",
     dotdir + "/.bashrc": home + "/.bashrc",
     dotdir + "/.bash_aliases": home + "/.bash_aliases"
@@ -50,7 +51,7 @@ def main():
 
             for cmd in installs[key]["postinstall"]:
                 try:
-                    run(cmd.split(' '), check=True)
+                    sp.run(cmd.split(' '), check=True)
                 except CalledProcessError as cpe:
                     sys.stderr.write("Postinstall steps for {} failed: {}"
                                      .format(key, cpe))
