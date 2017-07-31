@@ -10,8 +10,6 @@ home = os.environ["HOME"]
 
 
 installs = {
-    # dotdir + "/.vimrc": home + "/.vimrc",
-    # TODO add post-install param, "vim +PlugInstall +qall"
     dotdir + "/.vimrc": {
         "to": home + "/.vimrc",
         "postinstall": [
