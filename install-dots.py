@@ -22,7 +22,8 @@ installs = {
     dotdir + "/ftplugin": home + "/.vim/ftplugin",
     dotdir + "/.gitconfig": home + "/.gitconfig",
     dotdir + "/.bashrc": home + "/.bashrc",
-    dotdir + "/.bash_aliases": home + "/.bash_aliases"
+    dotdir + "/.bash_aliases": home + "/.bash_aliases",
+    dotdir + "/.abcde.conf": home + "/.abcde.conf"
 }
 
 
