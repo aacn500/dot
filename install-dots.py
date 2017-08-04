@@ -5,6 +5,9 @@ import sys
 
 import subprocess as sp
 
+INSTALL_FAIL = 1
+POSTINSTALL_FAIL = 2
+
 dotdir = os.path.dirname(os.path.realpath(__file__))
 home = os.environ["HOME"]
 
@@ -15,6 +18,8 @@ class Dotfile:
         self.dest = dest
         self.postinstall = postinstall
         self.dir = dir
+
+        self.name = os.path.basename(self.src)
 
 
 installs = [
@@ -32,10 +37,25 @@ installs = [
 ]
 
 
-def report_file_exists_err(dotfile):
-    sys.stderr.write("{} could not be installed as {} already exists "
-                     "on the file system.\n"
-                     .format(dotfile.src, dotfile.dest))
+def request_overwrite(dotfile):
+    # Couldn't create a symlink. Ask a user for permission to nuke the
+    # existing dotfile, and then create the symlink.
+    perm = input("Could not install {} because {} already exists.\n"
+                 "Overwrite existing file? [Y/n] "
+                 .format(dotfile.name, dotfile.dest))
+    if perm in ["", "y", "Y", "yes"]:
+        try:
+            os.remove(dotfile.dest)
+        except OSError:
+            # os.remove raises OSError when path is a directory.
+            # TODO empty and remove directory
+            sys.stderr.write("{} is a directory. Please remove it manually.\n"
+                             .format(dotfile.dest))
+            return False
+
+        os.symlink(dotfile.src, dotfile.dest)
+        return True
+    return False
 
 
 def main():
@@ -47,21 +67,26 @@ def main():
         try:
             os.symlink(src, dest, target_is_directory=dotfile.dir)
         except FileExistsError:
-            # TODO prompt user whether to overwrite
             if not (os.path.islink(dest) and os.readlink(dest) == src):
                 # we have not already set up this symlink
-                report_file_exists_err(dotfile)
-                code |= 1
-            continue
-
-        for cmd in dotfile.postinstall:
-            try:
-                sp.run(cmd.split(' '), check=True)
-            except sp.CalledProcessError as cpe:
-                sys.stderr.write("Postinstall steps for {} failed: {}\n"
-                                 .format(src, cpe))
-                code |= 2
-                break
+                try:
+                    success = request_overwrite(dotfile)
+                except:
+                    sys.stderr.write("Failed to install {}\n"
+                                     .format(dotfile.name))
+                    code |= INSTALL_FAIL
+                else:
+                    if not success:
+                        code |= INSTALL_FAIL
+        else:
+            for cmd in dotfile.postinstall:
+                try:
+                    sp.run(cmd.split(' '), check=True)
+                except sp.CalledProcessError as cpe:
+                    sys.stderr.write("Postinstall steps for {} failed: {}\n"
+                                     .format(src, cpe))
+                    code |= POSTINSTALL_FAIL
+                    break
 
     return code
 
