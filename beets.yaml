@@ -1,0 +1,18 @@
+directory: ~/Music
+library: ~/Music/.data/library.db
+plugins:
+  - convert
+  - fetchart
+
+asciify_paths: yes
+
+convert:
+    auto: yes
+    format: ogg
+#    formats:
+#        mp3:
+#            command: ffmpeg -i $source -y -vn -acodec libmp3lame -ab 256k $dest
+#            extenstion: mp3
+#        ogg:
+#            command: ffmpeg -i $source -y -vn -acodec libvorbis -ab 
+#            extension: ogg

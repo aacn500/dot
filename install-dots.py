@@ -33,7 +33,8 @@ installs = [
     Dotfile(dotdir + "/.gitconfig",    home + "/.gitconfig"),
     Dotfile(dotdir + "/.bashrc",       home + "/.bashrc"),
     Dotfile(dotdir + "/.bash_aliases", home + "/.bash_aliases"),
-    Dotfile(dotdir + "/.abcde.conf",   home + "/.abcde.conf")
+    Dotfile(dotdir + "/.abcde.conf",   home + "/.abcde.conf"),
+    Dotfile(dotdir + "/beets.yaml",    home + "/.config/beets/config.yaml")
 ]
 
 
