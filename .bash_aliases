@@ -25,3 +25,5 @@ alias gti='git'
 alias gui=">/dev/null 2>/dev/null nohup"
 # e.g. `gui firefox google.co.uk &` will now run as if firefox ha been opened
 # from a WM shortcut
+
+alias cdrip="abcde; beet import -m $HOME/.incoming_cd/"
