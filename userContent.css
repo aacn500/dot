@@ -1,0 +1,5 @@
+@-moz-document domain(tweetdeck.twitter.com) {
+    section.js-column.column {
+        width: 500px !important;
+    }
+}

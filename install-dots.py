@@ -22,20 +22,11 @@ class Dotfile:
         self.name = os.path.basename(self.src)
 
 
-installs = [
-    Dotfile(dotdir + "/.vimrc",        home + "/.vimrc", postinstall=[
-        "curl -fLo {}/.vim/autoload/plug.vim --create-dirs "
-        "https://raw.githubusercontent.com/junegunn/vim-plug/master"
-        "/plug.vim".format(home),
-        "vim +PlugInstall +qall"
-    ]),
-    Dotfile(dotdir + "/ftplugin",      home + "/.vim/ftplugin", dir=True),
-    Dotfile(dotdir + "/.gitconfig",    home + "/.gitconfig"),
-    Dotfile(dotdir + "/.bashrc",       home + "/.bashrc"),
-    Dotfile(dotdir + "/.bash_aliases", home + "/.bash_aliases"),
-    Dotfile(dotdir + "/.abcde.conf",   home + "/.abcde.conf"),
-    Dotfile(dotdir + "/beets.yaml",    home + "/.config/beets/config.yaml")
-]
+def default_firefox_profile():
+    ff = home + "/.mozilla/firefox"
+    default_profile_it = (x for x in os.listdir(ff) if x.endswith("default"))
+    default_profile = next(default_profile_it, None)
+    return os.path.join(ff, default_profile)
 
 
 def request_overwrite(dotfile):
@@ -60,6 +51,23 @@ def request_overwrite(dotfile):
 
 
 def main():
+    installs = [
+        Dotfile(dotdir + "/.vimrc",        home + "/.vimrc", postinstall=[
+            "curl -fLo {}/.vim/autoload/plug.vim --create-dirs "
+            "https://raw.githubusercontent.com/junegunn/vim-plug/master"
+            "/plug.vim".format(home),
+            "vim +PlugInstall +qall"
+        ]),
+        Dotfile(dotdir + "/ftplugin",      home + "/.vim/ftplugin", dir=True),
+        Dotfile(dotdir + "/.gitconfig",    home + "/.gitconfig"),
+        Dotfile(dotdir + "/.bashrc",       home + "/.bashrc"),
+        Dotfile(dotdir + "/.bash_aliases", home + "/.bash_aliases"),
+        Dotfile(dotdir + "/.abcde.conf",   home + "/.abcde.conf"),
+        Dotfile(dotdir + "/beets.yaml",    home + "/.config/beets/config.yaml"),
+        Dotfile(dotdir + "/userContent.css",
+                default_firefox_profile() + "/chrome/userContent.css")
+    ]
+
     code = 0
     for dotfile in installs:
         src = dotfile.src
