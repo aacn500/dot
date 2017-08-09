@@ -79,6 +79,9 @@ def main():
                 else:
                     if not success:
                         code |= INSTALL_FAIL
+        except FileNotFoundError:
+            os.makedirs(os.path.dirname(dest))
+            os.symlink(src, dest, target_is_directory=dotfile.dir)
         else:
             for cmd in dotfile.postinstall:
                 try:
