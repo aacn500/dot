@@ -11,6 +11,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --tern-completer' }
     Plug 'fatih/vim-go', { 'tag': '*', 'do': ':GoInstallBinaries' }
     Plug 'derekwyatt/vim-scala'
+    Plug 'editorconfig/editorconfig-vim'
 
     call plug#end()
 
