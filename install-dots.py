@@ -58,11 +58,15 @@ def main():
             "/plug.vim".format(home),
             "vim +PlugInstall +qall"
         ]),
+        Dotfile(dotdir + "/i3",            home + "/.config/i3", dir=True),
+        Dotfile(dotdir + "/i3blocks",      home + "/.config/i3blocks", dir=True),
         Dotfile(dotdir + "/ftplugin",      home + "/.vim/ftplugin", dir=True),
-        Dotfile(dotdir + "/.gitconfig",    home + "/.gitconfig"),
-        Dotfile(dotdir + "/.bashrc",       home + "/.bashrc"),
-        Dotfile(dotdir + "/.bash_aliases", home + "/.bash_aliases"),
+        Dotfile(dotdir + "/xkb",           home + "/.config/xkb", dir=True),
         Dotfile(dotdir + "/.abcde.conf",   home + "/.abcde.conf"),
+        Dotfile(dotdir + "/.bash_aliases", home + "/.bash_aliases"),
+        Dotfile(dotdir + "/.bashrc",       home + "/.bashrc"),
+        Dotfile(dotdir + "/.gitconfig",    home + "/.gitconfig"),
+        Dotfile(dotdir + "/.xsession",     home + "/.xsession"),
         Dotfile(dotdir + "/beets.yaml",    home + "/.config/beets/config.yaml"),
         Dotfile(dotdir + "/userContent.css",
                 default_firefox_profile() + "/chrome/userContent.css")
