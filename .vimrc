@@ -8,7 +8,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'airblade/vim-gitgutter'
     Plug 'jelera/vim-javascript-syntax'
     Plug 'digitaltoad/vim-pug'
-    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --tern-completer' }
     Plug 'fatih/vim-go', { 'tag': '*', 'do': ':GoInstallBinaries' }
     Plug 'derekwyatt/vim-scala'
     Plug 'editorconfig/editorconfig-vim'
