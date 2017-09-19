@@ -42,6 +42,9 @@ bindsym $mod+Shift+q kill
 # installed.
 bindsym $mod+Shift+d exec --no-startup-id i3-dmenu-desktop
 
+# lock screen
+bindsym $mod+semicolon exec --no-startup-id i3lock
+
 # rofi
 # set common rofi args
 set $rofi rofi -bg "#fdf6e3" -hlbg "#eee8d5" -fg "#657b83" -hlfg "#586e75" -separator-style solid
