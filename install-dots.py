@@ -66,6 +66,7 @@ def main():
         Dotfile(dotdir + "/.bash_aliases", home + "/.bash_aliases"),
         Dotfile(dotdir + "/.bashrc",       home + "/.bashrc"),
         Dotfile(dotdir + "/.gitconfig",    home + "/.gitconfig"),
+        Dotfile(dotdir + "/.inputrc",      home + "/.inputrc"),
         Dotfile(dotdir + "/.xsession",     home + "/.xsession"),
         Dotfile(dotdir + "/beets.yaml",    home + "/.config/beets/config.yaml"),
         Dotfile(dotdir + "/userContent.css",
