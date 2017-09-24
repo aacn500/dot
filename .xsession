@@ -8,6 +8,9 @@
     # load Xresources
     xrdb -I$HOME ~/.Xresources
 
+    # set preferred terminal
+    export TERMINAL=xterm
+
     # start i3
     i3
 #fi
