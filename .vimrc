@@ -14,11 +14,18 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 
     call plug#end()
 
-    if has('gui_running')
-        let g:solarized_termcolors=256
-        set background=dark
-        colorscheme solarized
-    endif
+    " vim-colors-solarized
+    set background=dark
+    colorscheme solarized
+
+    " vim-go
+    autocmd FileType go map <C-.> :cnext<CR>
+    autocmd FileType go map <C-,> :cprevious<CR>
+    autocmd FileType go nnoremap <leader>q :cclose<CR>
+    autocmd FileType go nmap <leader>b <Plug>(go-build)
+    autocmd FileType go nmap <leader>r <Plug>(go-run)
+    autocmd FileType go nmap <leader>t <Plug>(go-test)
+    autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 endif
 
 syntax enable
@@ -49,12 +56,3 @@ au BufNewFile,BufRead *.ejs set filetype=html
 
 " set underscore as a non-word character
 set iskeyword-=_
-
-" vim-go
-autocmd FileType go map <C-.> :cnext<CR>
-autocmd FileType go map <C-,> :cprevious<CR>
-autocmd FileType go nnoremap <leader>q :cclose<CR>
-autocmd FileType go nmap <leader>b <Plug>(go-build)
-autocmd FileType go nmap <leader>r <Plug>(go-run)
-autocmd FileType go nmap <leader>t <Plug>(go-test)
-autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
