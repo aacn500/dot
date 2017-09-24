@@ -59,7 +59,8 @@ def main():
             "vim +PlugInstall +qall"
         ]),
         Dotfile(dotdir + "/i3",            home + "/.config/i3", dir=True),
-        Dotfile(dotdir + "/i3blocks",      home + "/.config/i3blocks", dir=True),
+        Dotfile(dotdir + "/i3blocks",
+                home + "/.config/i3blocks", dir=True),
         Dotfile(dotdir + "/ftplugin",      home + "/.vim/ftplugin", dir=True),
         Dotfile(dotdir + "/xkb",           home + "/.config/xkb", dir=True),
         Dotfile(dotdir + "/.abcde.conf",   home + "/.abcde.conf"),
@@ -67,8 +68,13 @@ def main():
         Dotfile(dotdir + "/.bashrc",       home + "/.bashrc"),
         Dotfile(dotdir + "/.gitconfig",    home + "/.gitconfig"),
         Dotfile(dotdir + "/.inputrc",      home + "/.inputrc"),
+        Dotfile(dotdir + "/.Xresources",   home + "/.Xresources"),
         Dotfile(dotdir + "/.xsession",     home + "/.xsession"),
         Dotfile(dotdir + "/beets.yaml",    home + "/.config/beets/config.yaml"),
+        Dotfile(dotdir + "/solarized/Xresources.dark",
+                home + "/.Xresources.d/solarized.dark"),
+        Dotfile(dotdir + "/solarized/Xresources.light",
+                home + "/.Xresources.d/solarized.light"),
         Dotfile(dotdir + "/userContent.css",
                 default_firefox_profile() + "/chrome/userContent.css")
     ]
