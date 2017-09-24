@@ -12,7 +12,7 @@ then
 fi
 
 alias l='ls'
-alias ll='ls -lF'
+alias ll='ls -lFh'
 alias la='ll -A'
 
 # this looks handy
