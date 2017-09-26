@@ -13,3 +13,11 @@
 	lgo = log
 	ln = log --oneline --no-decorate
 	undo = reset --hard HEAD~1
+	getname = ! basename $(git rev-parse --show-toplevel)
+	getver = describe --always --tags
+	getnamever = ! printf \"%s-%s\\n\" $(git getname) $(git getver)
+	getsusever = ! git getver | sed \"s/\\([0-9A-Za-z\\.~]\\+\\)-\\([0-9]\\+\\)-\\(g[0-9a-f]\\{6\\}\\)/\\1+git\\2.\\3/\"
+	getsusenamever = ! printf \"%s-%s\\n\" $(git getname) $(git getsusever)
+	# TODO make this its own script, with options e.g. --suse --compression-util gz --branch HEAD etc.
+	maketar = "! maketar() { if [ -z \"$1\" ]; then echo 'Usage: git maketar DIR'; else git archive --format tar --prefix=$(git getnamever)/ HEAD | gzip -9 > $1/$(git getnamever).tar.gz; fi; }; maketar"
+	makesusetar = "! makesusetar() { if [ -z \"$1\" ]; then echo 'git makesusetar DIR'; else git archive --format tar --prefix=$(git getsusenamever)/ HEAD | gzip -9 > $1/$(git getsusenamever).tar.gz; fi; }; makesusetar"
