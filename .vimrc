@@ -11,6 +11,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'fatih/vim-go', { 'tag': '*', 'do': ':GoInstallBinaries' }
     Plug 'derekwyatt/vim-scala'
     Plug 'editorconfig/editorconfig-vim'
+    Plug 'lervag/vimtex'
 
     call plug#end()
 
