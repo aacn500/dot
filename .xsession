@@ -11,6 +11,9 @@
     # set preferred terminal
     export TERMINAL=xterm
 
+    # disable bell/beep
+    xset -b
+
     # start i3
     i3
 #fi
