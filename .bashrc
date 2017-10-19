@@ -114,3 +114,9 @@ then
     export GOROOT=$GOPATH/$GOVERSION
     export PATH=$PATH:$GOROOT/bin
 fi
+
+#rust
+if [ -d $HOME/.cargo ]
+then
+    export PATH=$PATH:$HOME/.cargo/bin
+fi
