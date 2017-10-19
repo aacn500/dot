@@ -107,7 +107,7 @@ then
 fi
 
 # golang
-GOVERSION=1.8.1
+GOVERSION=1.9.1
 if [ -d $HOME/go/$GOVERSION ]
 then
     export GOPATH=$HOME/go
