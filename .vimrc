@@ -13,6 +13,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'editorconfig/editorconfig-vim'
     Plug 'lervag/vimtex'
     Plug 'zefei/vim-wintabs'
+    Plug 'fidian/hexmode'
 
     call plug#end()
 
