@@ -27,3 +27,16 @@ alias gui=">/dev/null 2>/dev/null nohup"
 # from a WM shortcut
 
 alias cdrip="abcde; beet import -m $HOME/.incoming_cd/"
+
+unlockff() {
+    ffprofile=env ls $HOME/.mozilla/ | env grep default
+    if [ -n $ffprofile ]; then
+        if [ -e $ffprofile/.parentlock ]; then
+            rm $ffprofile/.parentlock
+        fi
+
+        if [ -L $ffprofile/lock ]; then
+            rm $ffprofile/lock
+        fi
+    fi
+}
