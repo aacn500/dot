@@ -12,6 +12,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'derekwyatt/vim-scala'
     Plug 'editorconfig/editorconfig-vim'
     Plug 'lervag/vimtex'
+    Plug 'zefei/vim-wintabs'
 
     call plug#end()
 
@@ -27,6 +28,16 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     autocmd FileType go nmap <leader>r <Plug>(go-run)
     autocmd FileType go nmap <leader>t <Plug>(go-test)
     autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+
+    " vim-wintabs
+    map <C-H> <Plug>(wintabs_previous)
+    map <C-L> <Plug>(wintabs_next)
+    map <C-T>c <Plug>(wintabs_close)
+    map <C-T>o <Plug>(wintabs_only)
+    map <C-W>c <Plug>(wintabs_close_window)
+    map <C-W>o <Plug>(wintabs_only_window)
+    command! Tabc WintabsCloseVimtab
+    command! Tabo WintabsOnlyVimtab
 endif
 
 syntax enable
