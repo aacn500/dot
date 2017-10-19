@@ -24,7 +24,7 @@ class Dotfile:
 
 def default_firefox_profile():
     ff = home + "/.mozilla/firefox"
-    default_profile_it = (x for x in os.listdir(ff) if x.endswith("default"))
+    default_profile_it = (x for x in os.listdir(ff) if ".default" in x)
     default_profile = next(default_profile_it, None)
     return os.path.join(ff, default_profile)
 
@@ -58,18 +58,13 @@ def main():
             "/plug.vim".format(home),
             "vim +PlugInstall +qall"
         ]),
-        Dotfile(dotdir + "/i3",            home + "/.config/i3", dir=True),
-        Dotfile(dotdir + "/i3blocks",
-                home + "/.config/i3blocks", dir=True),
         Dotfile(dotdir + "/ftplugin",      home + "/.vim/ftplugin", dir=True),
-        Dotfile(dotdir + "/xkb",           home + "/.config/xkb", dir=True),
         Dotfile(dotdir + "/.abcde.conf",   home + "/.abcde.conf"),
         Dotfile(dotdir + "/.bash_aliases", home + "/.bash_aliases"),
         Dotfile(dotdir + "/.bashrc",       home + "/.bashrc"),
         Dotfile(dotdir + "/.gitconfig",    home + "/.gitconfig"),
         Dotfile(dotdir + "/.inputrc",      home + "/.inputrc"),
         Dotfile(dotdir + "/.Xresources",   home + "/.Xresources"),
-        Dotfile(dotdir + "/.xsession",     home + "/.xsession"),
         Dotfile(dotdir + "/beets.yaml",    home + "/.config/beets/config.yaml"),
         Dotfile(dotdir + "/solarized/Xresources.dark",
                 home + "/.Xresources.d/solarized.dark"),
