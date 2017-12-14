@@ -40,3 +40,8 @@ unlockff() {
         fi
     fi
 }
+
+startvpn() {
+    pulsesvc="/usr/local/pulse/pulsesvc"
+    $pulsesvc -h webvpn.york.ac.uk -r york_users_realm -u $1
+}
