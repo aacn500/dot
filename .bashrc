@@ -120,3 +120,5 @@ if [ -d $HOME/.cargo ]
 then
     export PATH=$PATH:$HOME/.cargo/bin
 fi
+
+[ "x$COLORTERM" = "xxfce4-terminal" ] && [ "x$TERM" = "xxterm" ] && export TERM="xterm-256color"
