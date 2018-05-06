@@ -85,10 +85,12 @@ if [ -z ${GOPATH+x} ]; then
     export GOPATH=$HOME/go
 fi
 
+[ -d $GOPATH ] || mkdir -p $GOPATH
+
 export PATH=$PATH:$GOPATH/bin
 gov_config=$GOPATH/.gov
 
-if [ -n __gov_installed_go_versions ]; then
+if [ "x$(__gov_installed_go_versions)" != "x" ]; then
     if [ ! -f $gov_config ]; then
         echo $(__gov_installed_go_versions | tail -n1) > $gov_config
     fi
