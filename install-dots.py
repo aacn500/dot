@@ -52,20 +52,20 @@ def request_overwrite(dotfile):
 
 def main():
     installs = [
-        Dotfile(dotdir + "/.vimrc",        home + "/.vimrc", postinstall=[
+        Dotfile(dotdir + "/vim/vimrc",          home + "/.vimrc", postinstall=[
             "curl -fLo {}/.vim/autoload/plug.vim --create-dirs "
             "https://raw.githubusercontent.com/junegunn/vim-plug/master"
             "/plug.vim".format(home),
             "vim +PlugInstall +qall"
         ]),
-        Dotfile(dotdir + "/ftplugin",      home + "/.vim/ftplugin", dir=True),
-        Dotfile(dotdir + "/.abcde.conf",   home + "/.abcde.conf"),
-        Dotfile(dotdir + "/.bash_aliases", home + "/.bash_aliases"),
-        Dotfile(dotdir + "/.bashrc",       home + "/.bashrc"),
-        Dotfile(dotdir + "/.gitconfig",    home + "/.gitconfig"),
-        Dotfile(dotdir + "/.inputrc",      home + "/.inputrc"),
-        Dotfile(dotdir + "/beets.yaml",    home + "/.config/beets/config.yaml"),
-        Dotfile(dotdir + "/userContent.css",
+        Dotfile(dotdir + "/vim/ftplugin",       home + "/.vim/ftplugin", dir=True),
+        Dotfile(dotdir + "/music/abcde.conf",   home + "/.abcde.conf"),
+        Dotfile(dotdir + "/bash/bash_aliases",  home + "/.bash_aliases"),
+        Dotfile(dotdir + "/bash/bashrc",        home + "/.bashrc"),
+        Dotfile(dotdir + "/git/gitconfig",      home + "/.gitconfig"),
+        Dotfile(dotdir + "/inputrc",            home + "/.inputrc"),
+        Dotfile(dotdir + "/music/beets.yaml",   home + "/.config/beets/config.yaml"),
+        Dotfile(dotdir + "/firefox/userContent.css",
                 default_firefox_profile() + "/chrome/userContent.css")
     ]
 

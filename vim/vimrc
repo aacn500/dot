@@ -6,7 +6,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'ntpeters/vim-better-whitespace'
     Plug 'altercation/vim-colors-solarized'
     Plug 'airblade/vim-gitgutter'
-    Plug 'jelera/vim-javascript-syntax'
+    Plug 'pangloss/vim-javascript'
+    Plug 'mxw/vim-jsx'
     Plug 'digitaltoad/vim-pug'
     Plug 'fatih/vim-go', { 'tag': '*', 'do': ':GoInstallBinaries' }
     Plug 'derekwyatt/vim-scala'
@@ -29,6 +30,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     autocmd FileType go nmap <leader>r <Plug>(go-run)
     autocmd FileType go nmap <leader>t <Plug>(go-test)
     autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+	let g:go_fmt_command = "goimports"
 
     " vim-wintabs
     map <C-H> <Plug>(wintabs_previous)
@@ -69,3 +71,6 @@ au BufNewFile,BufRead *.ejs set filetype=html
 
 " set underscore as a non-word character
 set iskeyword-=_
+
+" auto run scala files with \r
+autocmd FileType scala nmap <leader>r :!scala %<CR>
