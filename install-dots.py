@@ -13,10 +13,12 @@ home = os.environ["HOME"]
 
 
 class Dotfile:
-    def __init__(self, src, dest, postinstall=[], dir=False):
+    def __init__(self, src, dest, postinstall=[], dir=False, umask=None):
         self.src = src
         self.dest = dest
         self.postinstall = postinstall
+        # umask for postinstall steps
+        self.umask = umask
         self.dir = dir
 
         self.name = os.path.basename(self.src)
@@ -65,6 +67,11 @@ def main():
             "/plug.vim".format(home),
             "nvim +PlugInstall +qall"
         ]),
+        Dotfile(dotdir + "/zsh/zshrc",          home + "/.zshrc", postinstall=[
+            "git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git "
+            "{}/.oh-my-zsh".format(home)
+        ], umask=0o022),
+        Dotfile(dotdir + "/zsh/custom",         home + "/zsh/custom", dir=True),
         Dotfile(dotdir + "/nvim/after",         home + "/.config/nvim/after", dir=True),
         Dotfile(dotdir + "/nvim/ftplugin",      home + "/.config/nvim/ftplugin", dir=True),
         Dotfile(dotdir + "/music/abcde.conf",   home + "/.abcde.conf"),
@@ -100,6 +107,8 @@ def main():
             os.makedirs(os.path.dirname(dest))
             os.symlink(src, dest, target_is_directory=dotfile.dir)
         else:
+            if dotfile.umask is not None:
+                old_umask = os.umask(dotfile.umask)
             for cmd in dotfile.postinstall:
                 try:
                     sp.run(cmd.split(' '), check=True)
@@ -108,6 +117,8 @@ def main():
                                      .format(src, cpe))
                     code |= POSTINSTALL_FAIL
                     break
+            if dotfile.umask is not None:
+                os.umask(old_umask)
 
     return code
 
