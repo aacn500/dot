@@ -52,13 +52,21 @@ def request_overwrite(dotfile):
 
 def main():
     installs = [
-        Dotfile(dotdir + "/vim/vimrc",          home + "/.vimrc", postinstall=[
-            "curl -fLo {}/.vim/autoload/plug.vim --create-dirs "
+        #Dotfile(dotdir + "/vim/vimrc",          home + "/.vimrc", postinstall=[
+        #    "curl -fLo {}/.vim/autoload/plug.vim --create-dirs "
+        #    "https://raw.githubusercontent.com/junegunn/vim-plug/master"
+        #    "/plug.vim".format(home),
+        #    "vim +PlugInstall +qall"
+        #]),
+        #Dotfile(dotdir + "/vim/ftplugin",       home + "/.vim/ftplugin", dir=True),
+        Dotfile(dotdir + "/nvim/init.vim",      home + "/.config/nvim/init.vim", postinstall=[
+            "curl -fLo {}/.config/nvim/autoload/plug.vim --create-dirs "
             "https://raw.githubusercontent.com/junegunn/vim-plug/master"
             "/plug.vim".format(home),
-            "vim +PlugInstall +qall"
+            "nvim +PlugInstall +qall"
         ]),
-        Dotfile(dotdir + "/vim/ftplugin",       home + "/.vim/ftplugin", dir=True),
+        Dotfile(dotdir + "/nvim/after",         home + "/.config/nvim/after", dir=True),
+        Dotfile(dotdir + "/nvim/ftplugin",      home + "/.config/nvim/ftplugin", dir=True),
         Dotfile(dotdir + "/music/abcde.conf",   home + "/.abcde.conf"),
         Dotfile(dotdir + "/bash/bash_aliases",  home + "/.bash_aliases"),
         Dotfile(dotdir + "/bash/bashrc",        home + "/.bashrc"),
