@@ -32,6 +32,7 @@ __gov_install_go_version() {
     else
         mkdir $GOPATH/$1
         __gov_curl "https://dl.google.com/go/${1}.linux-amd64.tar.gz" | tar xzf - -C $GOPATH/${1} --strip-components=1
+        __gov_switch $1
     fi
 }
 
@@ -50,7 +51,6 @@ __gov_versions() {
 }
 
 __gov_switch() {
-    old_ver=$(cat $gov_config)
     if [ -z ${1+x} ]; then
         __gov_install_usage
         return
@@ -61,9 +61,15 @@ __gov_switch() {
     fi
 
     echo $go_ver > $gov_config
-    old_root=$GOPATH/$old_ver
     export GOROOT=$GOPATH/$go_ver
-    export path=(${(@)path:#$old_root/bin} $GOROOT/bin)
+
+    old_ver=$([ -e $gov_config ] && cat $gov_config || echo "")
+    if [ -n "$old_ver" ]; then
+        old_root=$GOPATH/$old_ver
+        export path=(${(@)path:#$old_root/bin} $GOROOT/bin)
+    else
+        export path=($path $GOROOT/bin)
+    fi
 }
 
 
