@@ -55,7 +55,7 @@ __gov_switch() {
         __gov_install_usage
         return
     elif [ $1 = "latest" ]; then
-        go_ver=__gov_installed_go_versions | tail -n1
+        go_ver=$(__gov_installed_go_versions | tail -n1)
     else
         go_ver=$1
     fi
@@ -74,6 +74,8 @@ gov() {
         __gov_install "${@:2}"
     elif [ $1 = "versions" ]; then
         __gov_versions "${@:2}"
+    elif [ $1 = "switch" ]; then
+        __gov_switch "${@:2}"
     else
         __gov_usage
     fi
