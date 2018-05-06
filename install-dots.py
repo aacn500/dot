@@ -64,12 +64,7 @@ def main():
         Dotfile(dotdir + "/.bashrc",       home + "/.bashrc"),
         Dotfile(dotdir + "/.gitconfig",    home + "/.gitconfig"),
         Dotfile(dotdir + "/.inputrc",      home + "/.inputrc"),
-        Dotfile(dotdir + "/.Xresources",   home + "/.Xresources"),
         Dotfile(dotdir + "/beets.yaml",    home + "/.config/beets/config.yaml"),
-        Dotfile(dotdir + "/solarized/Xresources.dark",
-                home + "/.Xresources.d/solarized.dark"),
-        Dotfile(dotdir + "/solarized/Xresources.light",
-                home + "/.Xresources.d/solarized.light"),
         Dotfile(dotdir + "/userContent.css",
                 default_firefox_profile() + "/chrome/userContent.css")
     ]
