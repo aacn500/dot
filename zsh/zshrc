@@ -97,4 +97,25 @@ export EDITOR='nvim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-gvim() { [ -x "/etc/alternatives/x-terminal-emulator" ] && /etc/alternatives/x-terminal-emulator --profile=gvim -e "vim $@"; }
+
+gvim() {
+    if [ -x "/etc/alternatives/x-terminal-emulator" ]; then
+        emulator=$(update-alternatives --query x-terminal-emulator | sed -nE 's/^Value: (.*)$/\1/p')
+        case $emulator in
+            *xfce4-terminal* )
+                xfce4-terminal --title=gvim --hide-toolbar --hide-menubar -e "vim $@"
+                ;;
+            *mate-terminal* )
+                $emulator --profile=gvim -e "vim $@"
+                ;;
+            * )
+                >&2 echo "x-default-terminal uses an unknown terminal emulator."
+                >&2 echo "You may want to add special handling for this terminal emulator"
+                $emulator -e "vim $@"
+                ;;
+        esac
+    else
+        >&2 echo "Not sure which terminal to use..."
+        >&2 echo "Please update zshrc to help detect this case :)"
+    fi
+}
