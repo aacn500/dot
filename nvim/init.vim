@@ -7,11 +7,11 @@ if filereadable(expand('~/.config/nvim/autoload/plug.vim'))
     Plug 'ntpeters/vim-better-whitespace'
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'editorconfig/editorconfig-vim'
+    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --js-completer' }
 
     Plug 'fatih/vim-go', { 'tag': '*', 'do': ':GoUpdateBinaries' }
 
     Plug 'Alvarocz/vim-northpole'
-    Plug '~/.config/nvim/plugged/hello'
 
     call plug#end()
 
