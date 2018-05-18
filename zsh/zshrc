@@ -66,6 +66,10 @@ plugins=(
   vi-mode
 )
 
+if [ -e $ZSH_CUSTOM/plugins/local/local.plugin.zsh ]; then
+    plugins=($plugins local)
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
