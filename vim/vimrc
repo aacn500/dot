@@ -1,76 +1,140 @@
-" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+set nocompatible
+
 if filereadable(expand("~/.vim/autoload/plug.vim"))
-    call plug#begin('~/.vim/plugged')
+  call plug#begin("~/.vim/plugged")
 
-    Plug 'ntpeters/vim-better-whitespace'
-    Plug 'altercation/vim-colors-solarized'
-    Plug 'airblade/vim-gitgutter'
-    Plug 'pangloss/vim-javascript'
-    Plug 'mxw/vim-jsx'
-    Plug 'digitaltoad/vim-pug'
-    Plug 'fatih/vim-go', { 'tag': '*', 'do': ':GoInstallBinaries' }
-    Plug 'derekwyatt/vim-scala'
-    Plug 'editorconfig/editorconfig-vim'
-    Plug 'lervag/vimtex'
-    Plug 'zefei/vim-wintabs'
-    Plug 'fidian/hexmode'
+  Plug 'scrooloose/nerdtree'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'fidian/hexmode'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'ntpeters/vim-better-whitespace'
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'tpope/vim-unimpaired'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-dispatch'
 
-    call plug#end()
+  " Syntax plugins
+  Plug 'tpope/vim-cucumber'
+  Plug 'pangloss/vim-javascript'
+  Plug 'mxw/vim-jsx'
+  " vim-go requires go to be installed (shock)
+  Plug 'fatih/vim-go', { 'tag': '*', 'do': ':GoInstallBinaries' }
+  Plug 'derekwyatt/vim-scala'
 
-    " vim-colors-solarized
-    set background=dark
-    colorscheme solarized
+  " Completion
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --java-completer' }
 
-    " vim-go
-    autocmd FileType go map <C-.> :cnext<CR>
-    autocmd FileType go map <C-,> :cprevious<CR>
-    autocmd FileType go nnoremap <leader>q :cclose<CR>
-    autocmd FileType go nmap <leader>b <Plug>(go-build)
-    autocmd FileType go nmap <leader>r <Plug>(go-run)
-    autocmd FileType go nmap <leader>t <Plug>(go-test)
-    autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
-	let g:go_fmt_command = "goimports"
+  " Linting
+  Plug 'vim-syntastic/syntastic'
 
-    " vim-wintabs
-    map <C-H> <Plug>(wintabs_previous)
-    map <C-L> <Plug>(wintabs_next)
-    map <C-T>c <Plug>(wintabs_close)
-    map <C-T>o <Plug>(wintabs_only)
-    map <C-W>c <Plug>(wintabs_close_window)
-    map <C-W>o <Plug>(wintabs_only_window)
-    command! Tabc WintabsCloseVimtab
-    command! Tabo WintabsOnlyVimtab
+  Plug 'fenetikm/falcon'
+
+  call plug#end()
+
+  """""""""""""""""""""""""
+  ""                     ""
+  ""    PLUGIN CONFIG    ""
+  ""                     ""
+  """""""""""""""""""""""""
+
+  " Colours
+  set termguicolors
+  colorscheme falcon
+
+  " vim-go
+  autocmd FileType go map <C-.> :cnext<CR>
+  autocmd FileType go map <C-,> :cprevious<CR>
+  autocmd FileType go nnoremap <leader>q :cclose<CR>
+  autocmd FileType go nmap <leader>b <Plug>(go-build)
+  autocmd FileType go nmap <leader>r <Plug>(go-run)
+  autocmd FileType go nmap <leader>t <Plug>(go-test)
+  autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+  let g:go_fmt_command = "goimports"
 endif
 
 syntax enable
 
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+" Default indenting to 2 spaces
 set expandtab
+set smarttab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+filetype plugin on
 filetype plugin indent on
+set autoindent
+set smarttab
 
+
+" Show line numbers
 set number
+" Show line numbers relative to current line
+set relativenumber
+" Show line and column in status bar
+set ruler
+" Show current command on status bar
 set showcmd
+" Show current vim mode
+set showmode
+" Highlight the matching parenthesis
 set showmatch
+" Show completion options in the menu
+set wildmenu
+" Ignores case when searching is search string is lowercase
+set ignorecase
+set smartcase
+" Sets a more descriptive title in the terminal
+set title
+" g flag is on by default when performing :s
+set gdefault
+" Do not close buffers when opening new
+set hidden
+" Enable mouse in terminals
+set mouse=a
+" Do the correct thing when pressing backspace
+set backspace=indent,eol,start
+" Understand :W as :w
+command! W :w
+" Show unwanted whitespace
+set listchars=tab:->,trail:·,extends:>
+set list!
+" Always show statusline
+set laststatus=2
+" in a gui, use a nice font
+set guifont=mononoki\ 10
 
-" move up/down vertically by visual line
+" move up/down respecting wrapping
 nnoremap j gj
 nnoremap k gk
 
-" switch tabs
-map <F7> :tabp <CR>
-map <F8> :tabn <CR>
+" leave insert mode on jj
+inoremap jj <ESC>
 
-" toggle highlight search
+" switch between open buffers
+map <F7> :bp <CR>
+map <F8> :bn <CR>
+
 nnoremap <Leader>h :set hlsearch!<CR>
+nnoremap <Leader>d :execute 'NERDTree ' . getcwd()<CR>
+nnoremap <Leader>D :NERDTreeClose<CR>
 
-" syntax for ejs files as if they were html
-au BufNewFile,BufRead *.ejs set filetype=html
+" display colours correctly, even in tmux
+if &term =~# '^screen'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
 
-" set underscore as a non-word character
-set iskeyword-=_
+" Colourscheme helper function
+" TODO improve comment backgrounds in falcon
+function! SyntaxItem()
+  return synIDattr(synID(line("."),col("."), 1), "name")
+endfunction
 
-" auto run scala files with \r
-autocmd FileType scala nmap <leader>r :!scala %<CR>
+function! BuildStatusLine()
+  " TODO build a better status line
+  set statusline=%f           " filename
+  set statusline+=\ -\        " separator
+  set statusline+=Filetype:\  " label
+  set statusline+=%y          " filetype
+endfunction
+call BuildStatusLine()
